@@ -1,0 +1,10 @@
+.nav_con{
+	position : fixed;
+	left : 0%;
+}
+
+.nav_con img{
+	width : 15%;
+	height : 15%;
+	cursor : pointer;
+}

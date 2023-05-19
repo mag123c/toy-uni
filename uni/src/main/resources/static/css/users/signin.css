@@ -1,0 +1,140 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Single+Day&display=swap");
+
+:root {
+	--btn_color: #e74c3c;
+    --btn_hover_color : #e74c3c;
+}
+
+* {
+    font-family: 'Single Day', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%
+}
+
+body{
+	background-image: linear-gradient(rgba(0, 0, 0, 0.527), rgba(0, 0, 0, 0.5)),
+					url("../../img/main.jpg");
+}
+
+.main_con{
+	margin : auto;
+	width : 60%;
+	height : 100vh;
+	display : flex;
+	justify-content : center;
+	align-items : center;
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.main_con .balloon {
+	visibility : hidden;
+	position : absolute;
+    width: 30%;
+    height: 5%;
+    left: 35%;
+    bottom: 75%;
+    background: #990033;
+    color: white;
+    border-radius: 5px;
+    padding: 12px 12.8px;
+    font-size : 1.5rem;
+    text-align : center;
+    margin : auto;
+}
+
+
+.main_con .balloon:after {
+    border-top: 1.5rem solid #990033;
+    border-left: 1.5rem solid transparent;
+    border-right: 1.5rem solid transparent;
+    border-bottom: 0px solid transparent;
+    content: "";
+    position: absolute;
+    top : 90%;
+    left: 40%;
+}
+
+.main_con .balloon.show {
+	visibility : visible;
+	transition: opacity 2s 1s ease-in;
+	opacity : 0;
+}
+
+.sub_con{
+	display : flex;
+	flex-direction : column;
+	text-align : center;
+	width : 60%;
+	height : 40%;
+}
+
+.sub_con .form_con{
+	height : 70%;
+}
+
+.sub_con .form_con form{
+	width : 100%;
+	height : 100%;
+	display : flex;
+	flex-direction : column;
+	justify-content : center;
+	align-items : center;
+}
+
+.sub_con .form_con input{
+	background-color : #e74c3c;
+	color : white;
+	font-size : 2rem;
+	width : 80%;
+	height : 30%;
+	margin : 3%;
+}
+
+.sub_con .form_con input:focus{
+	outline-color: rgba(0,0,0,0);
+	background: rgba(255,255,255,.95);
+	color: #e74c3c;
+}
+
+
+.sub_con .button_con{
+	height : 30%;
+}
+
+.sub_con .button_con button{
+	font-family : "Single Day";	
+	background-color : var(--btn_color);
+	box-shadow: 0 0 0 1px #c63702 inset,
+				0 0 0 2px rgba(255,255,255,0.15) inset,
+				0 8px 0 0 #C24032,
+				0 8px 0 1px rgba(0,0,0,0.4),
+				0 8px 8px 1px rgba(0,0,0,0.5);
+	position: relative;
+	display: inline-block;
+	font-size: 2rem;
+	padding: 20px 60px;
+	color: white;
+	margin: 20px 10px 10px;
+	text-align: center;
+	transition: top .01s linear;
+	text-shadow: 0 1px 0 rgba(0,0,0,0.15);
+}
+
+.sub_con .button_con button:hover{
+	background-color : var(--btn_hover_color);
+}
+
+.sub_con .button_con button:active{
+	top : 9px;
+	box-shadow: 0 0 0 1px #c63702 inset,
+				0 0 0 2px rgba(255,255,255,0.15) inset,
+				0 0 0 1px rgba(0,0,0,0.4);
+}

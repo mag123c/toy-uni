@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Single+Day&display=swap">
+<link rel="stylesheet" type="text/css" href="/css/users/signin.css">
+<link rel="stylesheet" href="/css/nav.css">
+</head>
+<body>
+<div th:replace="~{nav :: nav_div}"></div>
+<div class="main_con">
+	<div class="balloon">
+		<span th:text="${fail}"></span>
+	</div>
+	<div class="sub_con">
+		<div class="form_con">
+			<form action="/users/signin" method="post" name="form1">
+				<input type="text" th:value="${user?.getUsername()}" name="id" placeholder="ID" autocomplete="off" required>
+				<input type="password" name="pw" placeholder="PW" autocomplete="off" required>
+			</form>
+		</div>
+		<div class="button_con">
+			<button type="button" class="signin_btn">로그인</button>
+			<button type="button" class="signup_btn">찾기</button>
+		</div>
+	</div>	
+</div>
+<script src="/js/users/signin.js" type="text/javascript"></script>
+</body>
+</html>

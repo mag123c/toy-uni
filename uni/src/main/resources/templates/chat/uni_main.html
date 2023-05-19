@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="/css/chat/uni_main.css">
+<link rel="stylesheet" href="/css/nav.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+<div th:replace="~{nav :: nav_div}"></div>
+<div class="main_con">
+
+	<div class="left_con">
+	
+		<div class="info_con">		
+			<div class="myinfo_con">
+				<div class="myinfo_imgcon">
+					<a href="#" class="img_upload">
+						<img class="user_img" th:if="${img != null}" th:src="${img}">
+						<img class="user_img" th:if="${img == null}">						
+						<span class="imgmodify_btn"><i class="fa-solid fa-gear"></i></span>
+					</a>
+				</div>
+				
+				<div class="myinfo_namecon">
+					<span th:text="${nn + ' 님'}"></span>
+					<span th:if="${cash == null}">0 point</span>
+					<span th:if="${cash != null}" th:text="${cash + ' point'}"></span>					
+				</div>
+				
+				<div class="modify_btncon">
+					<button type="button">정보수정</button>
+					<button type="button">결제하기</button>					
+				</div>
+				
+			</div>			
+		</div>
+	</div>
+	
+	<form method="post" action="/users/img/{idx}" name="imgchange" enctype="multipart/form-data">
+		<input type="file" name="imgfile" style="display : none;">
+		<input type="hidden" name="idx" th:text="${idx}">		
+		<input type="hidden" name="img">
+	</form>	
+	
+	<div class="right_con">	</div>
+	
+</div> 
+<script src="/js/chat/uni_main.js"></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<link rel="stylesheet" href="/css/nav.css">
+</head>
+<body>
+<div th:replace="~{nav :: nav_div}"></div>
+<div class="main_con">
+	<div class="text_con">
+	
+	</div>
+	<div class="button_con">
+		<form action="/users/signin">
+			<button type="submit" class="signin_btn">로그인</button>
+		</form>
+		<form action="/users">
+			<button type="submit" class="signup_btn">회원가입</button>
+		</form>
+	</div>
+</div>
+<script src="js/main.js" type="text/javascript"></script>
+</body>
+</html>

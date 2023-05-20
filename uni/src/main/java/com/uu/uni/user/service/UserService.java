@@ -20,5 +20,7 @@ public interface UserService {
 	public Optional<UserEntity> getUser(String id);
 
 	public boolean img_modify(MultipartFile imgfile, UserDTO dto) throws IOException;
+
+	public void modify(UserDTO dto);
 	
 }

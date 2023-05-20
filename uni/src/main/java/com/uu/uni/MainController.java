@@ -12,5 +12,5 @@ public class MainController {
 	public String main(@AuthenticationPrincipal User user) {
 		if(user != null) return "redirect:/uni/main";		
 		else return "main";
-	}
+	}	
 }

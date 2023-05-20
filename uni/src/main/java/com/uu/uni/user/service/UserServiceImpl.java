@@ -100,7 +100,9 @@ public class UserServiceImpl implements UserService {
 			UserEntity user = userRepository.findByIdx(dto.getIdx()).get();
 			String url = "https://randomchatuni.s3.ap-northeast-2.amazonaws.com/";
 			String beforeImg = user.getImg()==null ? null : user.getImg().replace(url, "");
-			beforeImg = URLDecoder.decode(beforeImg, "UTF-8");
+			
+			if(beforeImg != null) beforeImg = URLDecoder.decode(beforeImg, "UTF-8");
+			
 			String serverFileName = s3Uploader.upload(imgfile, user.getId(), beforeImg);
 			dto.setImg(serverFileName);
 			
@@ -109,5 +111,15 @@ public class UserServiceImpl implements UserService {
 		}		
 		else return false;		
 	}
-	
+
+	@Transactional
+	@Override
+	public void modify(UserDTO dto) {
+		Optional<UserEntity> user = userRepository.findById(dto.getId());
+		UserEntity updateUser = user.get();
+		updateUser.setPw(bcpe.encode(dto.getPw()));
+		updateUser.setPw(dto.getNn());
+		updateUser.setEmail(dto.getEmail());
+		updateUser.setPhone(dto.getPhone());
+	}	
 }

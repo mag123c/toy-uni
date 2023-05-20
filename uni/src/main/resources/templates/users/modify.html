@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div th:fragment="modify_div" class="modify_main_con">
+
+	<div class="modify_header_con">
+		<div class="modify_h_title_con">내 정보</div>
+	</div>
+	<span class="x_btn">X</span>
+	<div class="modify_arrow"></div>
+	
+	<div class="modify_info_con">	
+		<input type="hidden" name="idx" th:value="${user.getIdx()}">
+		<div class="modify_input_con">
+			<input type="text" name="id" placeholder="ID" th:value="${user.getId()}" autocomplete="off" readonly>
+		</div>		
+		<div class="modify_input_con">
+			<input type="password" name="pw" placeholder="비밀번호" autocomplete="off">
+		</div>		
+		<div class="modify_input_con">
+			<input type="password" name="pw2" placeholder="비밀번호 확인" autocomplete="off">
+		</div>
+		<div class="modify_input_con">
+			<input type="text" name="nn" placeholder="닉네임" th:value="${user.getNn()}" autocomplete="off">
+		</div>
+		<div class="modify_input_con">
+			<input type="text" name="email" placeholder="EMAIL" th:value="${user.getEmail()}" autocomplete="off">
+		</div>		
+		<div class="modify_input_con">
+			<input type="text" name="phone" placeholder="PHONE" oninput="autoHyphen(this)" maxlength="13" th:value="${user.getPhone()}" autocomplete="off">
+		</div>										
+		<div class="modify_input_con">
+			<button type="button" class="modify_request_btn">수정하기</button>
+		</div>		
+	</div>
+		
+</div>
+</body>
+</html>

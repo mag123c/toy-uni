@@ -3,6 +3,10 @@ const img_upload = document.querySelector(".img_upload");
 const input_file = document.querySelector("input[type='file']");
 const filename = document.querySelector("input[name='img']");
 const user_idx = document.querySelector("input[name='idx']");
+const modify_btn = document.querySelector(".modify_btn");
+const modify_main_con = document.querySelector(".modify_main_con");
+const main_con = document.querySelector(".main_con");
+const right_con = document.querySelector(".right_con");
 
 window.onload = function(){	
 	if(user_img.src.length==0){
@@ -46,6 +50,32 @@ function imgUpload(file, idx){
 	})
 }
 
+function modal(status){
+	if(status==="activate"){
+		modalA();
+	}
+	else modalI();
+}
+
+function modalA(){
+	main_con.style.pointerEvents = "none";
+	main_con.classList.add("modal");
+	right_con.classList.add("modal");
+	user_img.classList.add("modal");	
+	modify_main_con.className = "modify_main_con show";
+}
+
+function modalI(){
+	main_con.classList.remove("modal");
+	right_con.classList.remove("modal");
+	user_img.classList.remove("modal");
+	modify_main_con.className = "modify_main_con hide";
+	main_con.style.pointerEvents = "auto";
+	for(var i=1; i<modify_info.length; i++){
+		modify_info[i].style.border = "solid 1px #222";
+	}
+}
+
 img_upload.addEventListener('click', function(){
 	imgChange_click();
 });
@@ -57,4 +87,8 @@ input_file.addEventListener('change', function(){
 		imgUpload(this.files[0], user_idx.value);
 	}
 	else alert(msg);
+});
+
+modify_btn.addEventListener('click', function(){
+	modal("activate");
 });

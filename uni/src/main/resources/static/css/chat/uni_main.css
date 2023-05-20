@@ -109,6 +109,7 @@ body {
 	color: white;
 	padding : 2%;
 	text-align: center;
+	cursor : pointer;
 	transition: top .01s linear;
 	text-shadow: 0 1px 0 rgba(0,0,0,0.15);
 }
@@ -129,4 +130,18 @@ body {
 					url("/img/chatposter.svg");
 	background-repeat : no-repeat;
 	background-size : 100%, 100%;
+}
+
+/*Model*/
+.main_con.modal{
+	background-color : rgba(0, 0, 0, 0.5);
+}
+
+.main_con .right_con.modal{
+	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1)),
+					url("/img/chatposter.svg");
+}
+
+.main_con .left_con .info_con .myinfo_con .myinfo_imgcon .user_img.modal{
+    filter: brightness(50%); 	
 }

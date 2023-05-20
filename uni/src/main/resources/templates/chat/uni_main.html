@@ -4,33 +4,34 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="/css/chat/uni_main.css">
 <link rel="stylesheet" href="/css/nav.css">
+<link rel="stylesheet" href="/css/users/modify.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 </head>
 <body>
 <div th:replace="~{nav :: nav_div}"></div>
+<div th:replace="~{users/modify :: modify_div}"></div>
 <div class="main_con">
 
-	<div class="left_con">
-	
+	<div class="left_con">	
 		<div class="info_con">		
 			<div class="myinfo_con">
 				<div class="myinfo_imgcon">
 					<a href="#" class="img_upload">
-						<img class="user_img" th:if="${img != null}" th:src="${img}">
-						<img class="user_img" th:if="${img == null}">						
+						<img class="user_img" th:if="${user.getImg() != null}" th:src="${img}">
+						<img class="user_img" th:if="${user.getImg() == null}">						
 						<span class="imgmodify_btn"><i class="fa-solid fa-gear"></i></span>
 					</a>
 				</div>
 				
 				<div class="myinfo_namecon">
-					<span th:text="${nn + ' 님'}"></span>
-					<span th:if="${cash == null}">0 point</span>
-					<span th:if="${cash != null}" th:text="${cash + ' point'}"></span>					
+					<span th:text="${user.getNn() + ' 님'}"></span>
+					<span th:if="${user.getCash() == null}">0 point</span>
+					<span th:if="${user.getCash() != null}" th:text="${user.getCash() + ' point'}"></span>					
 				</div>
 				
 				<div class="modify_btncon">
-					<button type="button">정보수정</button>
+					<button type="button" class="modify_btn">정보수정</button>
 					<button type="button">결제하기</button>					
 				</div>
 				
@@ -46,5 +47,6 @@
 	
 </div> 
 <script src="/js/chat/uni_main.js"></script>
+<script src="/js/users/modify.js"></script>
 </body>
 </html>

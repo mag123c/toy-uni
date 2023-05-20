@@ -27,12 +27,8 @@ public class ChatController {
 	@GetMapping("/main")
 	public String main(@AuthenticationPrincipal User user, Model model) {
 		Optional<UserEntity> one = userService.getUser(user.getUsername());
-		model.addAttribute("idx", one.get().getIdx());
-		model.addAttribute("nn", one.get().getNn());
-		model.addAttribute("cash", one.get().getCash());
-		model.addAttribute("img", one.get().getImg());
-		
-		return "/chat/uni_main";
+		model.addAttribute("user", one.get());		
+		return "chat/uni_main";
 	}
 	
 }

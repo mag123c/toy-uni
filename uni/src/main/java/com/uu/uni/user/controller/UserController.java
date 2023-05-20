@@ -93,15 +93,15 @@ public class UserController {
 		
 	}
 	
+	@ResponseBody
 	@PutMapping("/{idx}")
-	public void modify() {
-		
+	public void modify(@PathVariable int idx, UserDTO dto) {
+		userService.modify(dto);
 	}
 	
 	@ResponseBody
 	@PutMapping("/img/{idx}")
 	public String img_modify(@PathVariable int idx, @RequestParam("imgfile") MultipartFile imgfile, UserDTO dto) throws IOException {
-		System.out.println(imgfile);
 		if(imgfile.getSize() >= 5242880) return "실패:5MB 미만의 이미지만 사용 가능합니다.";
 		if(userService.img_modify(imgfile, dto)) return dto.getImg();
 		else return "실패:불가능한 형식의 파일입니다.";

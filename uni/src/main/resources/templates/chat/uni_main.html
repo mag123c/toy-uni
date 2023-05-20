@@ -5,6 +5,7 @@
 <link rel="stylesheet" type="text/css" href="/css/chat/uni_main.css">
 <link rel="stylesheet" href="/css/nav.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 </head>
 <body>
 <div th:replace="~{nav :: nav_div}"></div>
@@ -37,12 +38,10 @@
 		</div>
 	</div>
 	
-	<form method="post" action="/users/img/{idx}" name="imgchange" enctype="multipart/form-data">
-		<input type="file" name="imgfile" style="display : none;">
-		<input type="hidden" name="idx" th:text="${idx}">		
-		<input type="hidden" name="img">
-	</form>	
-	
+	<input type="file" name="imgfile" style="display : none;">
+	<input type="hidden" name="idx" th:value="${idx}">		
+	<input type="hidden" name="img">
+
 	<div class="right_con">	</div>
 	
 </div> 

@@ -1,8 +1,8 @@
 package com.uu.uni.user.service;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -96,18 +96,18 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	@Override
 	public boolean img_modify(MultipartFile imgfile, UserDTO dto) throws IOException {
-		if(!imgfile.isEmpty()) {			
-	        String uuid = UUID.randomUUID().toString();
-			String serverFileName = s3Uploader.upload(imgfile, dto.getId()+uuid);
+		if(!imgfile.isEmpty()) {
+			UserEntity user = userRepository.findByIdx(dto.getIdx()).get();
+			String url = "https://randomchatuni.s3.ap-northeast-2.amazonaws.com/";
+			String beforeImg = user.getImg()==null ? null : user.getImg().replace(url, "");
+			beforeImg = URLDecoder.decode(beforeImg, "UTF-8");
+			String serverFileName = s3Uploader.upload(imgfile, user.getId(), beforeImg);
 			dto.setImg(serverFileName);
 			
-			Optional<UserEntity> User = userRepository.findByIdx(dto.getIdx());
-			User.get().setImg(serverFileName);
+			user.setImg(serverFileName);
 			return true;
 		}		
 		else return false;		
 	}
-
-
 	
 }

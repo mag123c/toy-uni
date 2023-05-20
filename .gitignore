@@ -77,6 +77,7 @@ secrets.yml
 .sts4-cache
 
 ## app-security.properties
+application.properties
 application-security.properties
 
 ### Spring BOOT - END ###

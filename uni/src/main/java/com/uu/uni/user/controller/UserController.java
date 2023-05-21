@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.uu.uni.user.dto.UserDTO;
+import com.uu.uni.user.dto.UserSignInDTO;
 import com.uu.uni.user.dto.UserSignUpDTO;
 import com.uu.uni.user.entity.UserEntity;
 import com.uu.uni.user.service.UserService;
@@ -45,9 +46,8 @@ public class UserController {
 	//시큐리티로 로그인 대체
 //	//나중에 로직을 boolean으로 들고오지말고 유저 객체로 들고올 수도..? 로그인이든 뭐든간에
 //	@PostMapping("/signin")
-//	public ModelAndView signin(@ModelAttribute("dto") UserSignInDTO dto, HttpSession ss, ModelAndView mv) {
+//	public ModelAndView signin(@ModelAttribute("dto") UserSignInDTO dto, ModelAndView mv) {
 //		if(userService.login(dto)) {
-//			ss.setAttribute("ID", dto.getId());
 //			mv.setViewName("redirect:/uni/main");
 //		}
 //		else {
@@ -83,10 +83,10 @@ public class UserController {
 		return msg;
 	}
 	
-	@PostMapping("/signout")
-	public String signout(@RequestBody UserEntity req) {
-		return null;
-	}	
+//	@PostMapping("/logout")
+//	public String signout(@RequestBody UserEntity req) {
+//		return null;
+//	}	
 	
 	@GetMapping("/{idx}")
 	public void find() {
@@ -96,6 +96,7 @@ public class UserController {
 	@ResponseBody
 	@PutMapping("/{idx}")
 	public void modify(@PathVariable int idx, UserDTO dto) {
+		System.out.println(dto);
 		userService.modify(dto);
 	}
 	

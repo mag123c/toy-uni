@@ -8,10 +8,11 @@ const modify_main_con = document.querySelector(".modify_main_con");
 const main_con = document.querySelector(".main_con");
 const right_con = document.querySelector(".right_con");
 
-window.onload = function(){	
+window.onload = function(){
 	if(user_img.src.length==0){
 		user_img.src = "/img/person.svg";
 	}
+	setModify();
 }
 
 function imgChange_click(){

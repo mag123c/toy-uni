@@ -15,12 +15,12 @@ import com.uu.uni.user.service.UserService;
 
 @Controller
 @RequestMapping("/uni")
-public class ChatController {
+public class MainChatController {
 	
 	UserService userService;
 	
 	@Autowired
-	public ChatController(UserService userService) {
+	public MainChatController(UserService userService) {
 		this.userService = userService;
 	}
 

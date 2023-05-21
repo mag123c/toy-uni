@@ -18,6 +18,8 @@ public interface UserService {
 	public String validation(String param, String text);
 	
 	public Optional<UserEntity> getUser(String id);
+	
+	public Optional<UserEntity> getUserForMainChat(String nn);
 
 	public boolean img_modify(MultipartFile imgfile, UserDTO dto) throws IOException;
 

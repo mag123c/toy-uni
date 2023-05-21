@@ -9,7 +9,7 @@ var before_email;
 var before_phone;
 var tf = false;
 
-window.onload = function(){
+function setModify(){
 	id = document.querySelector("input[name='id']");	
 	before_nn = document.querySelector("input[name='nn']");	
 	before_email = document.querySelector("input[name='email']");

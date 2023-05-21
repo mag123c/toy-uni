@@ -117,9 +117,16 @@ public class UserServiceImpl implements UserService {
 	public void modify(UserDTO dto) {
 		Optional<UserEntity> user = userRepository.findById(dto.getId());
 		UserEntity updateUser = user.get();
-		updateUser.setPw(bcpe.encode(dto.getPw()));
-		updateUser.setPw(dto.getNn());
+		updateUser.setPw(bcpe.encode(dto.getPw()));		
+		updateUser.setNn(dto.getNn());
 		updateUser.setEmail(dto.getEmail());
 		updateUser.setPhone(dto.getPhone());
+	}
+
+	@Override
+	public Optional<UserEntity> getUserForMainChat(String nn) {
+		Optional<UserEntity> User = userRepository.findByNn(nn);
+		if(User.isPresent()) return User;
+		else return null;
 	}	
 }

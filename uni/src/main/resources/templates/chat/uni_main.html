@@ -2,11 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="/css/chat/uni_main.css">
+<link rel="stylesheet" href="/css/chat/uni_main.css">
 <link rel="stylesheet" href="/css/nav.css">
 <link rel="stylesheet" href="/css/users/modify.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 </head>
 <body>
 <div th:replace="~{nav :: nav_div}"></div>
@@ -17,7 +18,7 @@
 		<div class="info_con">		
 			<div class="myinfo_con">
 				<div class="myinfo_imgcon">
-					<a href="#" class="img_upload">
+					<a class="img_upload">
 						<img class="user_img" th:if="${user.getImg() != null}" th:src="${img}">
 						<img class="user_img" th:if="${user.getImg() == null}">						
 						<span class="imgmodify_btn"><i class="fa-solid fa-gear"></i></span>
@@ -37,16 +38,39 @@
 				
 			</div>			
 		</div>
-	</div>
+		<form action="/users/signout" method="post">
+			<button type="submit" class="logout_btn">로그아웃</button>
+		</form>
+		
+		<button type="button" class="friend_btn">친구목록</button>
+	</div>	
 	
 	<input type="file" name="imgfile" style="display : none;">
 	<input type="hidden" name="idx" th:value="${idx}">		
 	<input type="hidden" name="img">
 
-	<div class="right_con">	</div>
+	<div class="right_con">
 	
+		<div class="chat_con">
+			<div class="chatting_con" style="display : none;">
+				<div class="chatting_img_con">
+				</div>
+				<div class="chatting_nn_con">
+				</div>
+				<div class="chatting_text_con">
+				</div>
+			</div>
+						
+		</div>
+		
+		<textarea placeholder="메세지 입력" class="textarea"></textarea>
+		<button type="button" class="send_btn">보내기</button>		
+		<button type="button" class="enter_btn">채팅방 입장하기</button>		
+	</div>
+
 </div> 
 <script src="/js/chat/uni_main.js"></script>
+<script src="/js/chat/mainchat.js"></script>
 <script src="/js/users/modify.js"></script>
 </body>
 </html>

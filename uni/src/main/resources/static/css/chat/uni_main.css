@@ -47,6 +47,7 @@ body {
 }
 
 .main_con .left_con .info_con .myinfo_con .myinfo_imgcon{
+	cursor : pointer;
 	margin-left : 25%;
 	width : 50%;
 	margin-top : 5%;
@@ -95,7 +96,8 @@ body {
 	height : 20%;
 }
 
-.main_con .left_con .info_con .myinfo_con .modify_btncon button{
+.main_con .left_con .info_con .myinfo_con .modify_btncon button, .main_con .left_con .logout_btn,
+.main_con .left_con .friend_btn, .main_con .right_con .enter_btn, .main_con .right_con .send_btn{
 	font-family : "Single Day";	
 	background-color : var(--btn_color);
 	box-shadow: 0 0 0 1px #c63702 inset,
@@ -114,12 +116,14 @@ body {
 	text-shadow: 0 1px 0 rgba(0,0,0,0.15);
 }
 
-.main_con .left_con .info_con .myinfo_con .modify_btncon button:hover{
+.main_con .left_con .info_con .myinfo_con .modify_btncon button:hover, .main_con .left_con .logout_btn:hover ,
+.main_con .left_con .friend_btn:hover , .main_con .right_con .enter_btn:hover, .main_con .right_con .send_btn:hover{
 	background-color : var(--btn_hover_color);
 }
 
-.main_con .left_con .info_con .myinfo_con .modify_btncon button:active{
-	top : 9px;
+.main_con .left_con .info_con .myinfo_con .modify_btncon button:active, .main_con .left_con .logout_btn:active ,
+.main_con .left_con .friend_btn:active, .main_con .right_con .enter_btn:active, .main_con .right_con .send_btn:active{
+	bottom : 9px;
 	box-shadow: 0 0 0 1px #c63702 inset,
 				0 0 0 2px rgba(255,255,255,0.15) inset,
 				0 0 0 1px rgba(0,0,0,0.4);
@@ -130,6 +134,126 @@ body {
 					url("/img/chatposter.svg");
 	background-repeat : no-repeat;
 	background-size : 100%, 100%;
+}
+
+.main_con .left_con .logout_btn{
+	padding : 1%;
+	width : 8%;
+	position : absolute;
+	bottom : 2%;
+	left : 0.5%;
+}
+
+.main_con .left_con .friend_btn{	
+	padding : 1%;
+	width : 8%;
+	position : absolute;
+	bottom : 2%;
+	left : 41%;
+}
+
+.main_con .right_con .enter_btn{
+	padding : 1%;
+	position : absolute;
+	bottom : 2%;
+	margin-left : 1%;
+	width : 48%;
+}
+
+.main_con .right_con .enter_btn.entering{
+	padding : 1%;
+	position : absolute;
+	bottom : 2%;
+	right : 0%;
+	width : 5%;
+}
+
+.main_con .right_con .send_btn{
+	display : none;
+}
+
+.main_con .right_con .send_btn.show{
+	display : block;
+	position : absolute;
+	padding : 1%;
+	bottom : 2%;
+	right : 6%;
+	width : 5%;
+}
+
+.main_con .right_con .chat_con{
+	overflow : auto;
+	max-width : 100%;
+	margin-top : 5%;
+	height : 80%;
+}
+
+.main_con .right_con .chat_con .chatting_con{
+	display : flex;
+	align-items : center;
+	background-color : white;
+	border-radius : 40px;
+	padding : 3%;
+	font-size : 3rem;
+	margin : 2%;
+	max-width : 80%;
+	min-width : 20%;
+	margin-left : 10%;
+	max-height : 20%;
+	overflow-wrap: break-word;
+	overflow : hidden;	
+}
+
+.main_con .right_con .chat_con .chatting_con.openclose{
+	text-align : center;	
+	width : 50%;
+	margin-left : 25%;
+}
+
+.main_con .right_con .chat_con .chatting_con .chatting_img_con{
+	margin-right : 5%;	
+	min-width : 15%;
+	max-width : 15%;
+	height : 100%;		
+}
+
+.main_con .right_con .chat_con .chatting_con .chatting_img_con img{
+	cursor : pointer;
+	height : 100%;
+	width : 100%;	
+}
+
+.main_con .right_con .chat_con .chatting_con span{
+	font-size : 2rem;
+}
+
+.main_con .right_con .chat_con .chatting_con .chatting_nn_con{
+	margin-right : 5%;	
+	min-width : 15%;
+	max-width : 15%;
+}
+
+.main_con .right_con .chat_con .chatting_con .chatting_nn_con span{
+	color : red;
+}
+
+.main_con .right_con .textarea{
+	display : none;
+}
+
+.main_con .right_con .textarea.show{
+	display : block;
+	position : absolute;
+	bottom : 2%;
+	width : 35%;
+	height : 7%;
+	padding-left : 1%;
+	padding-right : 1%;
+	margin-left : 2%;
+	font-size : 3rem;
+	border-radius : 30px;
+	resize : none;
+	overflow : hidden;
 }
 
 /*Model*/

@@ -11,7 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import jakarta.servlet.DispatcherType;
-import static org.springframework.security.config.Customizer.withDefaults;
+//import static org.springframework.security.config.Customizer.withDefaults;
 
 
 
@@ -37,30 +37,21 @@ public class SecurityConfig {
 	                .loginProcessingUrl("/users/signin")
 	                .usernameParameter("id")
 	                .passwordParameter("pw")
-	                .defaultSuccessUrl("/uni/main", true)
-	                .failureUrl("/users/signin")
+	                .defaultSuccessUrl("/?success", true)
+	                .failureUrl("/users/signin?error")
 	                .permitAll()
 	        )
-	        .logout(withDefaults());	// 로그아웃은 기본설정으로 (/logout으로 인증해제)
+//	        .logout(withDefaults());	// 로그아웃은 기본설정으로 (/logout으로 인증해제)
+	        .logout(logout -> logout
+	        		.logoutUrl("/users/signout")
+	        		.logoutSuccessUrl("/")
+    		);
+	        		
         
         
         
         return http.build();
 	}
-
-
-//		http.csrf().disable()
-//			.authorizeHttpRequests().requestMatchers(new AntPathRequestMatcher("/users/**")).permitAll()        	        	
-//			.and()
-//				.formLogin()
-//				.loginPage("/")
-//				.defaultSuccessUrl("/uni/main");
-//			.and()
-//				.logout()
-//				.logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
-//				.logoutSuccessUrl("/")
-//				.invalidateHttpSession(true);
-
 
 	@Bean
     PasswordEncoder passwordEncoder() {

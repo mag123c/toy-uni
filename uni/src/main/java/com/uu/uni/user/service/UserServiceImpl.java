@@ -2,6 +2,7 @@ package com.uu.uni.user.service;
 
 import java.io.IOException;
 import java.net.URLDecoder;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,23 +11,28 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.uu.uni.user.dto.FriendReqDTO;
 import com.uu.uni.user.dto.UserDTO;
 import com.uu.uni.user.dto.UserSignUpDTO;
+import com.uu.uni.user.entity.FriendReqResEntity;
 import com.uu.uni.user.entity.UserEntity;
+import com.uu.uni.user.repo.FriendReqResRepository;
 import com.uu.uni.user.repo.UserRepository;
 
 @Service
 public class UserServiceImpl implements UserService {
-
+	
 	private UserRepository userRepository;
+	private FriendReqResRepository friendReqResRepository;
 	private PasswordEncoder bcpe;
 	
     @Autowired
     private S3Uploader s3Uploader;
 	
 	@Autowired
-	public void UserService(UserRepository userRepository, PasswordEncoder bcpe) {
+	public void UserService(UserRepository userRepository, FriendReqResRepository friendReqResRepository, PasswordEncoder bcpe) {
 		this.userRepository = userRepository;
+		this.friendReqResRepository = friendReqResRepository;
 		this.bcpe = bcpe;
 	}
 
@@ -95,7 +101,7 @@ public class UserServiceImpl implements UserService {
 
 	@Transactional
 	@Override
-	public boolean img_modify(MultipartFile imgfile, UserDTO dto) throws IOException {
+	public boolean imgModify(MultipartFile imgfile, UserDTO dto) throws IOException {
 		if(!imgfile.isEmpty()) {
 			UserEntity user = userRepository.findByIdx(dto.getIdx()).get();
 			String url = "https://randomchatuni.s3.ap-northeast-2.amazonaws.com/";
@@ -128,5 +134,23 @@ public class UserServiceImpl implements UserService {
 		Optional<UserEntity> User = userRepository.findByNn(nn);
 		if(User.isPresent()) return User;
 		else return null;
+	}
+
+	@Transactional
+	@Override
+	public String friendReq(FriendReqDTO dto) {
+		if(dto.getFrom().equals(dto.getTo())) return "본인에게 친구요청을 보낼 수 없습니다";
+		
+		else {		
+			FriendReqResEntity req = new FriendReqResEntity();		
+			
+			req.setFrom(dto.getFrom());
+			req.setTo(dto.getTo());
+			req.setStatus("X");
+			req.setCreate_date(LocalDateTime.now());
+			
+			friendReqResRepository.save(req);
+			return "완료";
+		}
 	}	
 }

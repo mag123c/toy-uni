@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.uu.uni.user.dto.FriendReqDTO;
 import com.uu.uni.user.dto.UserDTO;
 import com.uu.uni.user.dto.UserSignInDTO;
 import com.uu.uni.user.dto.UserSignUpDTO;
@@ -96,15 +97,14 @@ public class UserController {
 	@ResponseBody
 	@PutMapping("/{idx}")
 	public void modify(@PathVariable int idx, UserDTO dto) {
-		System.out.println(dto);
 		userService.modify(dto);
 	}
 	
 	@ResponseBody
 	@PutMapping("/img/{idx}")
-	public String img_modify(@PathVariable int idx, @RequestParam("imgfile") MultipartFile imgfile, UserDTO dto) throws IOException {
+	public String imgModify(@PathVariable int idx, @RequestParam("imgfile") MultipartFile imgfile, UserDTO dto) throws IOException {
 		if(imgfile.getSize() >= 5242880) return "실패:5MB 미만의 이미지만 사용 가능합니다.";
-		if(userService.img_modify(imgfile, dto)) return dto.getImg();
+		if(userService.imgModify(imgfile, dto)) return dto.getImg();
 		else return "실패:불가능한 형식의 파일입니다.";
 	}
 	
@@ -113,5 +113,21 @@ public class UserController {
 		
 	}
 	
+	@ResponseBody
+	@PostMapping("/friends")	
+	public String friendReq(FriendReqDTO dto) {
+		System.out.println(dto);
+		return userService.friendReq(dto);		
+	}
+	
+	@PutMapping("/friends")	
+	public String friendResp(String from, String to) {		
+		return null;
+	}
+	
+	@DeleteMapping("/friends")	
+	public String friendDel(String from, String to) {
+		return null;
+	}
 	
 }

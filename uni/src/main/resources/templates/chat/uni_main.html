@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="/css/chat/uni_main.css">
 <link rel="stylesheet" href="/css/nav.css">
 <link rel="stylesheet" href="/css/users/modify.css">
+<link rel="stylesheet" href="/css/users/detail.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
@@ -12,6 +13,7 @@
 <body>
 <div th:replace="~{nav :: nav_div}"></div>
 <div th:replace="~{users/modify :: modify_div}"></div>
+<div th:replace="~{users/detail :: detail_div}"></div>
 <div class="main_con">
 
 	<div class="left_con">	
@@ -26,7 +28,7 @@
 				</div>
 				
 				<div class="myinfo_namecon">
-					<span th:text="${user.getNn() + ' 님'}"></span>
+					<span th:text="${user.getNn() + ' 님'}" class="my_nn"></span>
 					<span th:if="${user.getCash() == null}">0 point</span>
 					<span th:if="${user.getCash() != null}" th:text="${user.getCash() + ' point'}"></span>					
 				</div>
@@ -52,14 +54,6 @@
 	<div class="right_con">
 	
 		<div class="chat_con">
-			<div class="chatting_con" style="display : none;">
-				<div class="chatting_img_con">
-				</div>
-				<div class="chatting_nn_con">
-				</div>
-				<div class="chatting_text_con">
-				</div>
-			</div>
 						
 		</div>
 		
@@ -72,5 +66,6 @@
 <script src="/js/chat/uni_main.js"></script>
 <script src="/js/chat/mainchat.js"></script>
 <script src="/js/users/modify.js"></script>
+<script src="/js/users/detail.js"></script>
 </body>
 </html>

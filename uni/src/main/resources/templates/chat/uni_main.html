@@ -21,7 +21,7 @@
 			<div class="myinfo_con">
 				<div class="myinfo_imgcon">
 					<a class="img_upload">
-						<img class="user_img" th:if="${user.getImg() != null}" th:src="${img}">
+						<img class="user_img" th:if="${user.getImg() != null}" th:src="${user.getImg()}">
 						<img class="user_img" th:if="${user.getImg() == null}">						
 						<span class="imgmodify_btn"><i class="fa-solid fa-gear"></i></span>
 					</a>

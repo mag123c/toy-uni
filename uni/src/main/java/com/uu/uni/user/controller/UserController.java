@@ -113,6 +113,11 @@ public class UserController {
 		
 	}
 	
+	@GetMapping("/friends")	
+	public void friendAddCheck(FriendReqDTO dto, ModelAndView mv) {		
+
+	}
+	
 	@ResponseBody
 	@PostMapping("/friends")	
 	public String friendReq(FriendReqDTO dto) {

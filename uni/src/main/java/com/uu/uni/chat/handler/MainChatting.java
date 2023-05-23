@@ -60,7 +60,7 @@ public class MainChatting extends TextWebSocketHandler{
 				String textmsg = msg.split(identifier)[2];
 				UserEntity userEntity = userService.getUserForMainChat(nn).get();
 				String img = userEntity.getImg();
-				user.sendMessage(new TextMessage(status + identifier + nn + identifier + textmsg + identifier + img));
+				user.sendMessage(new TextMessage(status + identifier + userEntity.getNn() + identifier + textmsg + identifier + img + identifier + userEntity.getIdx()));
 			}
 			
 			else if(msg.split(identifier)[0].equals("CLOSE")) {

@@ -4,6 +4,7 @@ const detail_h_title_con = document.querySelector(".detail_h_title_con");
 const detail_img = document.querySelector('.detail_img');
 const freind_request_btn = document.querySelector(".freind_request_btn");
 const my_nn = document.querySelector(".my_nn");
+const my_idx = document.querySelector("input[name='idx']");
 
 var nickname;
 var imgsrc;
@@ -46,10 +47,11 @@ function friendReq(req_nn, res_nn){
 }
 
 chat_con.addEventListener('click', function(e){
-	if(e.target.tagName == "IMG") {
+	nickname = e.target.parentElement.nextElementSibling.textContent;
+	var idx = e.target.parentElement.parentElement.dataset.idx;	
+	if(e.target.tagName == "IMG" && my_idx.value != idx) {		
 		imgsrc = e.target.src;		
-		nickname = e.target.parentElement.nextElementSibling.textContent;
-		modifyModal("activate");
+		modifyModal("activate");			
 	}
 })
 

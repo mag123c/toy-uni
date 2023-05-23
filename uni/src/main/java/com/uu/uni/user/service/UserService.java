@@ -27,5 +27,9 @@ public interface UserService {
 	public void modify(UserDTO dto);
 
 	public String friendReq(FriendReqDTO dto);
+
+	public boolean friendAddCheck(FriendReqDTO dto);
+
+	public UserEntity friendListGet(FriendReqDTO dto);
 	
 }

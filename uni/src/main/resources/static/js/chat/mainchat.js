@@ -82,8 +82,9 @@ function userSendMsg(msg){
 	div4.className = "chatting_text_con";
 	span_nn.textContent = msg.split(identifier)[1];
 	span_text.textContent = msg.split(identifier)[2];
-	img.src = msg.split(identifier)[3];
-	
+	img.src = msg.split(identifier)[3];	
+	div1.dataset.idx = msg.split(identifier)[4];
+		
 	div2.append(img);
 	div3.append(span_nn);
 	div4.append(span_text);
@@ -118,7 +119,7 @@ send_btn.addEventListener('click', function(){
 		textarea.value = "";
 		return;
 	}
-	let send_msg = "SENDMSG" + identifier + before_nn + identifier + textarea.value;
+	let send_msg = "SENDMSG" + identifier + my_nn.textContent.split(" ")[0] + identifier + textarea.value;
 	sendMsg(send_msg);
 	textarea.value = "";
 })

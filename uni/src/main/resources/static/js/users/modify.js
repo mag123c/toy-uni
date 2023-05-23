@@ -85,7 +85,8 @@ function modify(info){
 		type : "PUT",
 		success : function(){
 			alert("수정완료");
-			modal("inactive");
+			my_nn.textContent = info[3].value + " 님";
+			modal("inactive");			
 			info[1].value="";
 			info[2].value="";
 		},error : function(err){

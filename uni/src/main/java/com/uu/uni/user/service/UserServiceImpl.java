@@ -152,5 +152,18 @@ public class UserServiceImpl implements UserService {
 			friendReqResRepository.save(req);
 			return "완료";
 		}
+	}
+
+	@Override
+	public boolean friendAddCheck(FriendReqDTO dto) {
+		if(userRepository.findByNn(dto.getTo()).isEmpty()) return false;
+		if(userRepository.findByNn(dto.getFrom()).get().getIdx() == userRepository.findByNn(dto.getTo()).get().getIdx()) return false;		
+		else return true;
+	}
+
+	@Override
+	public UserEntity friendListGet(FriendReqDTO dto) {
+		// TODO Auto-generated method stub
+		return null;
 	}	
 }

@@ -46,13 +46,14 @@ function friendReq(req_nn, res_nn){
 	})
 }
 
-chat_con.addEventListener('click', function(e){
-	nickname = e.target.parentElement.nextElementSibling.textContent;
+chat_con.addEventListener('click', function(e){	
 	var idx = e.target.parentElement.parentElement.dataset.idx;	
-	if(e.target.tagName == "IMG" && my_idx.value != idx) {		
+	if(e.target.tagName == "IMG" && my_idx.value != idx) {
+		nickname = e.target.parentElement.nextElementSibling.textContent;		
 		imgsrc = e.target.src;		
 		modifyModal("activate");			
 	}
+	else return;
 })
 
 detail_x_btn.addEventListener('click', function(){

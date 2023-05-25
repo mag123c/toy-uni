@@ -82,7 +82,7 @@ function userSendMsg(msg){
 	div4.className = "chatting_text_con";
 	span_nn.textContent = msg.split(identifier)[1];
 	span_text.textContent = msg.split(identifier)[2];
-	img.src = msg.split(identifier)[3];	
+	img.src = msg.split(identifier)[3] == "null" ? "/img/person.svg" : msg.split(identifier)[3];	
 	div1.dataset.idx = msg.split(identifier)[4];
 		
 	div2.append(img);

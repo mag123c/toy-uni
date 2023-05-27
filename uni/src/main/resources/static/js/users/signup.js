@@ -15,7 +15,6 @@ const vali_btn = document.querySelector(".vali_btn");
 const vali_xbtn = document.querySelector(".x_btn");
 const vali_input = document.querySelector(".vali_input");
 
-var num; //폰인증번호
 var timer; //타이머 setInterval func
 
 const autoHyphen = (e) => {
@@ -87,6 +86,11 @@ function dbValidation(param, text){
 		type : "post",
 		data : {"param" : param.name, "text" : text},
 		success : function(data){
+			console.log(data);
+			if(data == null) {
+				alert("error!!!")
+				return;
+			}
 			if(data.length > 0){
 				param.nextElementSibling.textContent = data;
 			}
@@ -125,12 +129,20 @@ function validationPhone(){
 		url : '/users/validation/phone',
 		type : 'post',
 		data : {"phone" : ph},
-		success : function(vali_num){
-			num = vali_num;
+		success : function(response){
+			console.log(response.length);
+			console.log(response.size);
+			if(response.length > 0) {
+				phone.nextElementSibling.textContent = "점검중입니다. 잠시 후 다시 시도해주세요";
+				return;
+			}
+			if(!response.statusMessage.includes("정상"))	{
+				phone.nextElementSibling.textContent = response.statusMessage;
+				return;
+			}		
 			valiModal();
-
 		}
-	})
+	})	
 }
 
 function valiModal(){

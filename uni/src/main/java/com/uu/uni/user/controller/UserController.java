@@ -149,16 +149,16 @@ public class UserController {
 	
 	@PostMapping("/validation/phone")
 	@ResponseBody
-	public String sendSMS(String phone, HttpSession ss) {
+	public SingleMessageSentResponse sendSMS(String phone, HttpSession ss) {
 		String ran_str = phoneValidationService.getValidationCode();		
 		Message msg = phoneValidationService.getMsgForm(ran_str, phone);	
 		SingleMessageSentResponse response = this.defaultMessageService.sendOne(new SingleMessageSendingRequest(msg));
-		
+				
 		ss.setAttribute("validation", ran_str);
 		ss.setAttribute("message_id", response.getMessageId());
 		ss.setMaxInactiveInterval(180);
-		
-		return ran_str;		
+		System.out.println(response);
+		return response;		
 	}
 	
 	@GetMapping("/validation/phone")

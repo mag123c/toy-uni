@@ -36,7 +36,5 @@ public class PhoneValidationServiceImpl implements PhoneValidationService{
 			else return "인증 실패";
 		}		
 	}
-
-	
 	
 }

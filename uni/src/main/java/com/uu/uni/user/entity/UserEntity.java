@@ -19,13 +19,12 @@ import lombok.NoArgsConstructor;
 public class UserEntity {
 	
 	@Builder
-	public UserEntity(int idx, String id, String pw, String nn, String email, String phone,
+	public UserEntity(int idx, String id, String pw, String nn, String phone,
 			String onoff, Integer cash, String img, LocalDateTime create_date, LocalDateTime update_date) {
 		this.idx = idx;
 		this.id = id;
 		this.pw = pw;
 		this.nn = nn;		
-		this.email = email;
 		this.phone = phone;
 		this.onoff = onoff;
 		this.cash = cash;
@@ -46,10 +45,7 @@ public class UserEntity {
 	
 	@Column(length=40, nullable=false)
 	private String nn;
-	
-	@Column(length=100)
-	private String email;
-	
+
 	@Column(length=40)
 	private String phone;
 	

@@ -5,18 +5,15 @@ const arrow = document.querySelector(".modify_arrow");
 const pw = document.querySelector("input[name='pw']");
 var id;
 var before_nn;
-var before_email;
 var before_phone;
 var tf = false;
 
 function setModify(){
 	id = document.querySelector("input[name='id']");	
 	before_nn = document.querySelector("input[name='nn']");	
-	before_email = document.querySelector("input[name='email']");
 	before_phone = document.querySelector("input[name='phone']");
 	id = id.value;
 	before_nn = before_nn.value;
-	before_email = before_email.value;
 	before_phone = before_phone.value;
 }
 
@@ -32,12 +29,8 @@ function regExpCheck(text, type){
 	var regExp = {
 		pw : /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$/,
 		nn : /^[가-힣a-zA-Z0-9]{2,20}$/,
-		email :  /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i
 	}
-	if(type=="email"){
-		return regExp.email.test(text);
-	}
-	else if(type=="pw"){
+	if(type=="pw"){
 		return regExp.pw.test(text);
 	}
 	else if(type=="pw2"){
@@ -81,7 +74,7 @@ function dbValidation(param){
 function modify(info){
 	$.ajax({
 		url : "/users/"+user_idx.value,
-		data : {"id" : id, "pw" : info[1].value, "nn" : info[3].value, "email" : info[4].value, "phone" : info[5].value},
+		data : {"id" : id, "pw" : info[1].value, "nn" : info[3].value, "phone" : info[4].value},
 		type : "PUT",
 		success : function(){
 			alert("수정완료");
@@ -158,19 +151,5 @@ modify_info[3].addEventListener('blur', function(){
 		dbValidation(this, this.value);
 	}
 	else if(this.value == before_nn) this.style.border = "solid 1px #222";
-	else this.style.border = "solid 1px #222"; 
-});
-
-modify_info[4].addEventListener('blur', function(){
-	if(this.value.length == 0){		
-		this.style.border = "solid 3px red";
-	}
-	else if(!regExpCheck(this.value, this.name)){
-		this.style.border = "solid 3px red";
-	}
-	else if(this.value != before_email) {
-		dbValidation(this, this.value);
-	}
-	else if(this.value == before_email) this.style.border = "solid 1px #222";
 	else this.style.border = "solid 1px #222"; 
 });

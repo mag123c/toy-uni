@@ -13,7 +13,6 @@ public class UserDTO {
     private String id;
     private String pw;
     private String phone;
-    private String email;
     private String nn;
     private String cash;
     private String img;

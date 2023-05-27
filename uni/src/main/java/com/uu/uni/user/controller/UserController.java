@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,22 +20,33 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.uu.uni.user.dto.FriendReqDTO;
 import com.uu.uni.user.dto.UserDTO;
-import com.uu.uni.user.dto.UserSignInDTO;
 import com.uu.uni.user.dto.UserSignUpDTO;
-import com.uu.uni.user.entity.UserEntity;
+import com.uu.uni.user.service.PhoneValidationService;
 import com.uu.uni.user.service.UserService;
 
+import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
+import net.nurigo.sdk.NurigoApp;
+import net.nurigo.sdk.message.model.Message;
+import net.nurigo.sdk.message.request.SingleMessageSendingRequest;
+import net.nurigo.sdk.message.response.SingleMessageSentResponse;
+import net.nurigo.sdk.message.service.DefaultMessageService;
 
+@RequiredArgsConstructor
 @Controller
 @RequestMapping("/users")
 public class UserController {
-
-	private UserService userService;
+	
+	final UserService userService;
+	final DefaultMessageService defaultMessageService;
+	final PhoneValidationService phoneValidationService;
 	
 	@Autowired
-	public UserController(UserService userService) {
+	public UserController(UserService userService, PhoneValidationService phoneValidationService) {
 		this.userService = userService;
-	}	
+		this.defaultMessageService = NurigoApp.INSTANCE.initialize("NCS1QZEXH48DE8O1", "12MPLZHBL3SP13B2EEDVNRRTW0Z6OO7O", "https://api.coolsms.co.kr");
+		this.phoneValidationService = phoneValidationService;
+	}
 	
 	@GetMapping("/signin")
 	public String signin(@AuthenticationPrincipal User user) {
@@ -60,8 +70,9 @@ public class UserController {
 //	}
 	
 	@GetMapping
-	public String signup(@AuthenticationPrincipal User user) {
-		if(user != null) return "redirect:/uni/main";		
+	public String signup(@AuthenticationPrincipal User user, HttpSession ss) {
+		if(user != null) return "redirect:/uni/main";
+		ss.invalidate(); //validation phone clear
 		return "users/signup";
 	}
 	
@@ -133,6 +144,27 @@ public class UserController {
 	@DeleteMapping("/friends")	
 	public String friendDel(String from, String to) {
 		return null;
+	}
+	
+	
+	@PostMapping("/validation/phone")
+	@ResponseBody
+	public String sendSMS(String phone, HttpSession ss) {
+		String ran_str = phoneValidationService.getValidationCode();		
+		Message msg = phoneValidationService.getMsgForm(ran_str, phone);	
+		SingleMessageSentResponse response = this.defaultMessageService.sendOne(new SingleMessageSendingRequest(msg));
+		
+		ss.setAttribute("validation", ran_str);
+		ss.setAttribute("message_id", response.getMessageId());
+		ss.setMaxInactiveInterval(180);
+		
+		return ran_str;		
+	}
+	
+	@GetMapping("/validation/phone")
+	@ResponseBody
+	public String validationSMS(String validation, HttpSession ss) {
+		return phoneValidationService.validationSMS(validation, ss);
 	}
 	
 }

@@ -28,9 +28,6 @@
 			<input type="text" name="nn" placeholder="닉네임" th:value="${user.getNn()}" autocomplete="off">
 		</div>
 		<div class="modify_input_con">
-			<input type="text" name="email" placeholder="EMAIL" th:value="${user.getEmail()}" autocomplete="off">
-		</div>		
-		<div class="modify_input_con">
 			<input type="text" name="phone" placeholder="PHONE" oninput="autoHyphen(this)" maxlength="13" th:value="${user.getPhone()}" autocomplete="off">
 		</div>										
 		<div class="modify_input_con">

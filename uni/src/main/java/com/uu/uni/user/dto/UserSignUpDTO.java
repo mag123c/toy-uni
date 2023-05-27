@@ -12,7 +12,6 @@ public class UserSignUpDTO {
     private String id;
     private String pw;
     private String nn;
-    private String email;
     private String phone;
     
 }

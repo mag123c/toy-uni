@@ -15,12 +15,10 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
 //	@Query("SELECT u.pw FROM User u WHERE u.id = :id")
 	Optional<UserEntity> findById(@Param("id") String id);
-	
-	Optional<UserEntity> findByEmail(@Param("email") String email);
-	
+		
 	Optional<UserEntity> findByNn(@Param("nn") String nn);
 
-	@Query(value="SELECT * FROM User u WHERE u.id=:#{#dto.id} or u.email=:#{#dto.email} or u.nn=:#{#dto.nn}", nativeQuery=true)
+	@Query(value="SELECT * FROM User u WHERE u.id=:#{#dto.id} or u.nn=:#{#dto.nn}", nativeQuery=true)
 	Optional<UserEntity> validation(@Param("dto") UserSignUpDTO dto);
 
 	Optional<UserEntity> findByIdx(int i);

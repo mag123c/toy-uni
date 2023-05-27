@@ -4,11 +4,19 @@ const id = document.querySelector('input[name=id]');
 const pw = document.querySelector('input[name=pw]');
 const pw2 = document.querySelector('input[name=pw2]');
 const nn = document.querySelector('input[name=nn]');
-const email = document.querySelector('input[name=email]');
 const phone = document.querySelector('input[name=phone]');
 const msg_div = document.querySelector('.msg');
 const input = document.querySelectorAll('.signup_input');
 const balloon = document.querySelector('.balloon');
+const validation_btn = document.querySelector(".validation_btn");
+const vali_con = document.querySelector(".vali_con");
+const vali_time = document.querySelector(".vali_time");
+const vali_btn = document.querySelector(".vali_btn");
+const vali_xbtn = document.querySelector(".x_btn");
+const vali_input = document.querySelector(".vali_input");
+
+var num; //폰인증번호
+var timer; //타이머 setInterval func
 
 const autoHyphen = (e) => {
 	e.value = e.value
@@ -27,13 +35,9 @@ function regExpCheck(text, type){
 		id : /^[a-zA-Z0-9]{4,20}$/,
 		pw : /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$/,
 		nn : /^[가-힣a-zA-Z0-9]{2,20}$/,
-		email :  /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i
 	}
 	if(type=="id"){
 		return regExp.id.test(text);
-	}
-	if(type=="email"){
-		return regExp.email.test(text);
 	}
 	else if(type=="pw"){
 		return regExp.pw.test(text);
@@ -58,7 +62,6 @@ function errorMsg(error){
 		id : "아이디는 4~20자 사이이며, 한글, 특수문자, 공백을 포함할 수 없습니다.",
 		pw : "비밀번호는 8~20자 사이의 특수문자, 문자, 숫자로 구성해주세요",
 		pw2 : "비밀번호가 서로 일치하지 않습니다",
-		email : "이메일 형식을 확인해주세요",
 		nn : "닉네임은 2~20자 사이의 특수문자나 공백을 포함할 수 없습니다.",
 		phone : "휴대폰 번호를 확인해주세요",			
 	}	
@@ -108,6 +111,68 @@ function validation(){
 		}
 	})
 	if(chk) document.form1.submit();
+}
+
+function validationPhone(){
+	if(phone.nextElementSibling.textContent.length > 0 || phone.value.length == 0){
+		alert("올바른 휴대폰번호를 입력해주세요");
+		return false;
+	}	
+	
+	let ph = phone.value.replaceAll("-", "");
+
+	$.ajax({
+		url : '/users/validation/phone',
+		type : 'post',
+		data : {"phone" : ph},
+		success : function(vali_num){
+			num = vali_num;
+			valiModal();
+
+		}
+	})
+}
+
+function valiModal(){
+	vali_con.className = "vali_con show";
+	let time = 180;
+	let min;
+	let sec;
+	
+	timer = setInterval(function(){
+		min = parseInt(time/60);
+		sec = time%60;
+		if(sec < 10) sec = "0" + sec;
+		
+		vali_time.textContent = "남은 시간 : 0" + min + " : " + sec;
+		time--;
+		
+		if(time < 0){
+			clearInterval(timer);
+			vali_time.classList.add("timeout");
+			vali_time.textContent = "인증번호가 만료되었습니다. 다시 시도해주세요";
+		}
+	}, 1000);
+	
+}
+
+function valiCheck(validation){
+	$.ajax({
+		url : '/users/validation/phone',
+		type : 'get',
+		data : {"validation" : validation},
+		success : function(msg){
+			if(msg.includes("완료")){
+				vali_con.className = "vali_con hide";
+				phone.nextElementSibling.textContent = "인증 성공";
+				phone.readOnly = true;
+				setTimeout(() => phone.textContent = "", 1000);
+			}
+			else {
+				vali_input.value = "인증 실패"				
+			}
+		}
+	})
 }
 
 id.addEventListener('blur', function(){
@@ -177,22 +242,6 @@ nn.addEventListener('blur', function(){
 	}
 });
 
-email.addEventListener('blur', function(){
-	let msg;
-	if(email.value.length == 0){
-		msg = errorMsg("notext");
-		errorMsgShow(msg, email);
-	}
-	else if(!regExpCheck(email.value, "email")){
-		msg = errorMsg("email");
-		errorMsgShow(msg, email);
-	}
-	else {
-		errorMsgHide(email);
-		dbValidation(email, email.value);
-	}
-});
-
 phone.addEventListener('blur', function(){
 	let msg;
 	if(phone.value.length == 0){
@@ -212,4 +261,22 @@ back_btn.addEventListener('click', function(){
 
 signup_btn.addEventListener('click', function(){
 	validation();
+})
+
+validation_btn.addEventListener('click', function(){
+	if(!validationPhone()) return;
+	valiModal();
+})
+
+vali_xbtn.addEventListener('click', function(){
+	vali_con.className = "vali_con hide";
+	clearInterval(timer);
+})
+
+vali_btn.addEventListener('click', function(){
+	if(vali_input.value.length == 0) {
+		alert("인증번호를 입력해주세요");
+		return;
+	}
+	valiCheck(vali_input.value);
 })

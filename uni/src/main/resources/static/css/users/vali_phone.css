@@ -1,7 +1,8 @@
 @charset "UTF-8";
+@charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Single+Day&display=swap");
 
-.modify_main_con {
+.vali_con {
 	opacity : 0;
 	background-color : white;
 	position : absolute;
@@ -9,26 +10,28 @@
 	left : 50%;
 	transform : translate(-50%,-50%);
 	width : 20%;
-	height : 50%;
+	height : 22%;
 	padding : 1%;
 	border-radius : 30px;
 }
 
-.modify_main_con.show {
+.vali_con.show {
 	opacity : 1;
-	top : 50%;
+	top : 15%;
 	transition-delay : 0.2s;
 	transition-duration : 2s;
+	z-index : 100;
 }
 
-.modify_main_con.hide {
+.vali_con.hide {
 	opacity : 0;
 	top : -30%;
 	transition-delay : 0.1s;
 	transition-duration : 1s;
+	z-index : 0;
 }
 
-.modify_main_con .x_btn{
+.vali_con .x_btn{
 	top : 5%;
 	left : 90%;
 	position : absolute;
@@ -38,36 +41,36 @@
 	cursor : pointer;
 }
 
-.modify_main_con .modify_header_con {
+.vali_con .vali_header_con {
 	height:10%;
 	display:flex;
 	align-items:center;
 	text-align:center;
 }
 
-.modify_main_con .modify_header_con > div {
+.vali_con .vali_header_con > div {
 	width : 100%;
 	color : black;
 	font-size : 2rem;
 	font-weight : 600;	
 }
 
-.modify_main_con .modify_info_con {
+.vali_con .vali_info_con {
 	text-align : center;
 	margin-top : 5%;
 }
 
-.modify_main_con .modify_info_con .modify_input_con {
+.vali_con .vali_info_con .vali_input_con {
 	height : 5%;
 	opacity : 1;
 	overflow : hidden;
 	transition : all 500ms ease-in-out;
 	margin-bottom : 3%;
 }
-.modify_main_con .modify_info_con input {
+.vali_con .vali_info_con .vali_input_con input {
 	width : 100%;
 	padding : 10px;
-	font-size : 1.5rem;
+	font-size : 2rem;
 	margin : 2% 0%;
 	border-radius : 15px;
 	box-sizing : border-box;
@@ -75,7 +78,15 @@
 	background : #f5f5f5;
 }
 
-.modify_main_con .modify_info_con button{
+.vali_con .vali_info_con .vali_input_con .vali_time{
+	font-size : 2rem;
+}
+
+.vali_con .vali_info_con .vali_input_con .vali_time.timeout{
+	color : red;
+}
+
+.vali_con .vali_info_con .vali_input_con button{
 	width:100%;
 	padding:10px;
 	font-size:16px;
@@ -87,15 +98,4 @@
 	cursor:pointer;
 	border:none;
 	outline:none;
-}
-
-.modify_main_con .modify_arrow {
-	position : absolute;
-	top : 50px;
-	left : 50%;
-	width : 0;
-	height : 0;
-	border-left : 10px solid transparent;
-	border-right : 10px solid transparent;
-	border-bottom : 10px solid black;
 }

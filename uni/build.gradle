@@ -50,6 +50,9 @@ dependencies {
 	implementation 'org.webjars:sockjs-client:1.5.1'
 	implementation 'org.webjars:stomp-websocket:2.3.4'
 	implementation 'com.google.code.gson:gson:2.9.0'
+	
+	//nurigo(coolSMS)
+	implementation 'net.nurigo:sdk:4.2.7'
 }
 
 tasks.named('test') {

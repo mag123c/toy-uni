@@ -61,7 +61,6 @@ public class UserServiceImpl implements UserService {
 			
 			userEntity.setId(dto.getId());
 			userEntity.setPw(dto.getPw());
-			userEntity.setEmail(dto.getEmail());
 			userEntity.setNn(dto.getNn());
 			userEntity.setPhone(dto.getPhone());
 			
@@ -77,9 +76,6 @@ public class UserServiceImpl implements UserService {
 		switch(param) {
 		case "id":
 			User = userRepository.findById(text);			
-			break;
-		case "email":
-			User = userRepository.findByEmail(text);
 			break;
 		case "nn":
 			User = userRepository.findByNn(text);
@@ -125,7 +121,6 @@ public class UserServiceImpl implements UserService {
 		UserEntity updateUser = user.get();
 		updateUser.setPw(bcpe.encode(dto.getPw()));		
 		updateUser.setNn(dto.getNn());
-		updateUser.setEmail(dto.getEmail());
 		updateUser.setPhone(dto.getPhone());
 	}
 

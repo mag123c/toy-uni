@@ -5,11 +5,14 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Single+Day&display=swap">
 <link rel="stylesheet" type="text/css" href="/css/users/signup.css">
+<link rel="stylesheet" type="text/css" href="/css/users/vali_phone.css">
 <link rel="stylesheet" href="/css/nav.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <div th:replace="~{nav :: nav_div}"></div>
+<div th:replace="~{users/vali_phone :: vali_div}"></div>
+
 <div class="main_con">
 	<div class="balloon">
 		<span th:text=${fail}></span>
@@ -25,11 +28,10 @@
 				<div class="msg pw2"></div>
 				<input type="text" th:value="${dto?.nn}" class="signup_input" name="nn" placeholder="NICKNAME" autocomplete="off" required>
 				<div class="msg nn"></div>
-				<input type="email" th:value="${dto?.email}" class="signup_input" name="email" placeholder="EMAIL" autocomplete="off" required>
-				<div class="msg email"></div>
 				<input type="text" th:value="${dto?.phone}" class="signup_input" name="phone" oninput="autoHyphen(this)" maxlength="13" placeholder="PHONENUMBER" autocomplete="off" required>
 				<div class="msg phone"></div>
 			</form>
+			<button type="button" class="validation_btn">휴대폰인증</button>			
 		</div>
 		<div class="button_con">
 			<button type="button" class="signup_btn">회원가입</button>

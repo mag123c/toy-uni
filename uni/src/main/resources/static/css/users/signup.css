@@ -100,7 +100,7 @@ body{
 .sub_con .form_con input{
 	background-color : #e74c3c;
 	color : white;
-	font-size : 1.5rem;
+	font-size : 3rem;
 	width : 60%;
 	height : 8%;	
 }
@@ -109,6 +109,15 @@ body{
 	outline-color: rgba(0,0,0,0);
 	background: rgba(255,255,255,.95);
 	color: #e74c3c;
+}
+
+.sub_con .validation_btn{
+	position : absolute;
+	bottom : 29%;
+	left : 70%;
+	width : 10%;
+	height : 5%;
+	font-size : 2rem;
 }
 
 .sub_con .button_con{	

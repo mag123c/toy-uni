@@ -108,6 +108,7 @@ public class UserController {
 	@ResponseBody
 	@PutMapping("/{idx}")
 	public void modify(@PathVariable int idx, UserDTO dto) {
+		System.out.println(dto);
 		userService.modify(dto);
 	}
 	
@@ -132,7 +133,6 @@ public class UserController {
 	@ResponseBody
 	@PostMapping("/friends")	
 	public String friendReq(FriendReqDTO dto) {
-		System.out.println(dto);
 		return userService.friendReq(dto);		
 	}
 	
@@ -146,6 +146,11 @@ public class UserController {
 		return null;
 	}
 	
+	@GetMapping("/friends/{idx}")	
+	public ModelAndView friendAddCheck(@PathVariable int idx, FriendReqDTO dto, ModelAndView mv) {
+		
+		return mv;
+	}	
 	
 	@PostMapping("/validation/phone")
 	@ResponseBody

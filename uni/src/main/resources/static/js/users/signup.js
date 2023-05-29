@@ -113,6 +113,7 @@ function validation(){
 			errorMsgShow(msg, ip);
 			chk = false;
 		}
+		else if(vali_input.readOnly == "false") chk=false;
 	})
 	if(chk) document.form1.submit();
 }

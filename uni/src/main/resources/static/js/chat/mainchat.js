@@ -3,16 +3,17 @@ const send_btn = document.querySelector(".send_btn");
 const chat_con = document.querySelector(".chat_con");
 const textarea = document.querySelector(".textarea");
 const identifier = " /:/ ";
+const cur_nn = document.querySelector(".my_nn");
 var sock = null;
 
 
-function connectWS(){
+function connectMainChatWS(){
 	var ws = new SockJS("/mainchatting");
 	sock = ws;
 	
 	ws.onopen = function(){
 		console.log("연결완료");
-		ws.send("OPEN" + identifier + before_nn);
+		ws.send("OPEN" + identifier + cur_nn.textContent.split(" ")[0]);
 	}
 	
 	ws.onmessage = function(e){		
@@ -44,11 +45,11 @@ function overflowScroll(){
 }
 
 function enter(){
-	connectWS();
+	connectMainChatWS();
 }
 
 function close(){
-	sock.send("CLOSE" + identifier + before_nn);
+	sock.send("CLOSE" + identifier + cur_nn.textContent.split(" ")[0]);
 	if(sock!=null) sock.close();
 	chat_con.replaceChildren();	
 }

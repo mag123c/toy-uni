@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class FriendReqDTO {
 
-	private String from;
-	private String to;
+	private int from;
+	private int to;
 	
 }

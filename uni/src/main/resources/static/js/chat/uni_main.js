@@ -58,23 +58,31 @@ function modal(status){
 	else modalI();
 }
 
-function modalA(){
-	main_con.style.pointerEvents = "none";
-	main_con.classList.add("modal");
-	right_con.classList.add("modal");
-	user_img.classList.add("modal");	
+function modalA(){	
 	modify_main_con.className = "modify_main_con show";
+	modalAA();
 }
 
 function modalI(){
-	main_con.classList.remove("modal");
-	right_con.classList.remove("modal");
-	user_img.classList.remove("modal");
+	modalII();
 	modify_main_con.className = "modify_main_con hide";
-	main_con.style.pointerEvents = "auto";
 	for(var i=1; i<modify_info.length; i++){
 		modify_info[i].style.border = "solid 1px #222";
 	}
+}
+
+function modalAA(){
+	main_con.style.pointerEvents = "none";
+	main_con.classList.add("modal");
+	right_con.classList.add("modal");
+	user_img.classList.add("modal");
+}
+
+function modalII(){
+	main_con.style.pointerEvents = "auto";
+	main_con.classList.remove("modal");
+	right_con.classList.remove("modal");
+	user_img.classList.remove("modal");
 }
 
 img_upload.addEventListener('click', function(){

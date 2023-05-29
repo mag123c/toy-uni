@@ -8,6 +8,7 @@ const my_idx = document.querySelector("input[name='idx']");
 
 var nickname;
 var imgsrc;
+var resp_idx;
 
 function modifyModal(status){
 	if(status==="activate"){
@@ -35,20 +36,21 @@ function removeModifyModal(){
 	main_con.style.pointerEvents = "auto";
 }
 
-function friendReq(req_nn, res_nn){
+function friendReq(){
 	$.ajax({
 		url : '/users/friends',
 		method : 'post',
-		data : {"from" : req_nn, "to" : res_nn},
+		data : {"from" : my_idx.value, "to" : resp_idx},
 		success : function(msg){
-			console.log(msg);
+			alert("친구 신청이 완료되었습니다.");
+			modifyModal("inactive");
 		}
 	})
 }
 
 chat_con.addEventListener('click', function(e){	
-	var idx = e.target.parentElement.parentElement.dataset.idx;	
-	if(e.target.tagName == "IMG" && my_idx.value != idx) {
+	resp_idx = e.target.parentElement.parentElement.dataset.idx;	
+	if(e.target.tagName == "IMG" && my_idx.value != resp_idx) {
 		nickname = e.target.parentElement.nextElementSibling.textContent;		
 		imgsrc = e.target.src;		
 		modifyModal("activate");			
@@ -61,5 +63,5 @@ detail_x_btn.addEventListener('click', function(){
 });
 
 freind_request_btn.addEventListener('click', function(){
-	friendReq(my_nn.textContent, nickname);
+	friendReq();
 })

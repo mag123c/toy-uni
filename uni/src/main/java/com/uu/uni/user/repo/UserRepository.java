@@ -21,6 +21,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 	@Query(value="SELECT * FROM User u WHERE u.id=:#{#dto.id} or u.nn=:#{#dto.nn}", nativeQuery=true)
 	Optional<UserEntity> validation(@Param("dto") UserSignUpDTO dto);
 
-	Optional<UserEntity> findByIdx(int i);
+	Optional<UserEntity> findByIdx(int idx);
 
 }

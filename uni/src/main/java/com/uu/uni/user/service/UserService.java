@@ -31,5 +31,7 @@ public interface UserService {
 	public boolean friendAddCheck(FriendReqDTO dto);
 
 	public UserEntity friendListGet(FriendReqDTO dto);
+
+	public Optional<UserEntity> getUser(int idx);
 	
 }

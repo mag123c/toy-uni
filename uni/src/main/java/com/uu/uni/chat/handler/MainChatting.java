@@ -3,6 +3,8 @@ package com.uu.uni.chat.handler;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,20 +23,25 @@ import jakarta.websocket.server.ServerEndpoint;
 public class MainChatting extends TextWebSocketHandler{
 	
 	private static List<WebSocketSession> USER = Collections.synchronizedList(new ArrayList<>());
+	private static Map<WebSocketSession, String> USER_MAP = new ConcurrentHashMap<WebSocketSession, String>();
+	private UserService userService;
+	final String identifier = " /:/ ";
 	
 	@Autowired
-	private UserService userService;
+	public MainChatting(UserService userService) {
+		this.userService = userService;
+	}
 	
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		System.out.println(session.toString());
 		
 		if(USER.contains(session)) {
-			System.out.println("이미 접속중인 사용자입니다 : " + session);
+			System.out.println("[MainChatting] 이미 접속중 : " + session);
 		}
 		else {
 			USER.add(session);
-			System.out.println("새로운 사용자가 접속했습니다 : " + session);
+			System.out.println("[MainChatting] 접속 : " + session);
 		}
 	}
 	
@@ -42,14 +49,16 @@ public class MainChatting extends TextWebSocketHandler{
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		System.out.println("메세지를 입력했습니다 : " + session + " : " +  message.getPayload());
 		String msg = message.getPayload();
+		System.out.println(msg);
 		for(WebSocketSession user : USER) {
 			String nn = null;
 			String status = null;
-			String identifier = " /:/ ";
-			if(msg.split(identifier)[0].equals("OPEN")) {
-				System.out.println("유저 입장");
+			if(msg.split(identifier)[0].equals("OPEN")) {				
+				System.out.println("[MainChatting] 유저 입장 완료");			
 				nn = msg.split(identifier)[1];
 				status = "OPEN";
+				
+				USER_MAP.put(session, nn);
 				
 				user.sendMessage(new TextMessage(status + identifier + nn + "님이 입장하셨습니다."));
 			}
@@ -76,7 +85,13 @@ public class MainChatting extends TextWebSocketHandler{
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		USER.remove(session);
-		System.out.println("접속 종료 : " + session);
+		
+		String nn = USER_MAP.get(session);
+		for(WebSocketSession user : USER) {
+			user.sendMessage(new TextMessage(status + identifier + nn + "님이 퇴장하셨습니다."));
+		}
+		
+		System.out.println("[MainChatting] 종료 : " + session);		
 	}
 
 }

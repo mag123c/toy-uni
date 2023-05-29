@@ -74,7 +74,7 @@ function dbValidation(param){
 function modify(info){
 	$.ajax({
 		url : "/users/"+user_idx.value,
-		data : {"id" : id, "pw" : info[1].value, "nn" : info[3].value, "phone" : info[4].value},
+		data : {"id" : document.querySelector('input[name="id"]').value, "pw" : info[1].value, "nn" : info[3].value, "phone" : info[4].value},
 		type : "PUT",
 		success : function(){
 			alert("수정완료");
@@ -98,22 +98,16 @@ modify_request_btn.addEventListener('click', function(){
 			alert("수정 실패. 확인 후 다시 시도해주세요.");
 			return;
 		}
-		if(i==3 || i==4){
-			var text;
-			switch(i){			
-				case 3: text = before_nn;
-				break;
-				case 4: text = before_email;
-				break;
-			}
+		if(i==3){
+			var text = before_nn;	
 			
 			if(text != modify_info[i].value){
 				dbValidation(modify_info[i])
 				if(!tf){
 					alert("수정 실패. 확인 후 다시 시도해주세요...");
 					return;	
-				}						
-			}				
+				}
+			}			
 			
 		}			
 	}

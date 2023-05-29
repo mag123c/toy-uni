@@ -134,14 +134,14 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	@Override
 	public String friendReq(FriendReqDTO dto) {
-		if(dto.getFrom().equals(dto.getTo())) return "본인에게 친구요청을 보낼 수 없습니다";
+		if(dto.getFrom() == dto.getTo()) return "본인에게 친구요청을 보낼 수 없습니다";
 		
 		else {		
 			FriendReqResEntity req = new FriendReqResEntity();		
 			
 			req.setFrom(dto.getFrom());
 			req.setTo(dto.getTo());
-			req.setStatus("X");
+			req.setStatus("NOREAD");
 			req.setCreate_date(LocalDateTime.now());
 			
 			friendReqResRepository.save(req);
@@ -151,8 +151,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean friendAddCheck(FriendReqDTO dto) {
-		if(userRepository.findByNn(dto.getTo()).isEmpty()) return false;
-		if(userRepository.findByNn(dto.getFrom()).get().getIdx() == userRepository.findByNn(dto.getTo()).get().getIdx()) return false;		
+		if(userRepository.findByIdx(dto.getTo()).isEmpty()) return false;
+		if(userRepository.findByIdx(dto.getFrom()).get().getIdx() == userRepository.findByIdx(dto.getTo()).get().getIdx()) return false;		
 		else return true;
 	}
 
@@ -160,5 +160,10 @@ public class UserServiceImpl implements UserService {
 	public UserEntity friendListGet(FriendReqDTO dto) {
 		// TODO Auto-generated method stub
 		return null;
-	}	
+	}
+
+	@Override
+	public Optional<UserEntity> getUser(int idx) {
+		return userRepository.findByIdx(idx); 
+	}
 }

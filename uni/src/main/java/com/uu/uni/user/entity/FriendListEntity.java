@@ -14,32 +14,33 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@Table(name = "FriendReqRes")
+@Table(name = "FriendList")
 @Entity
-public class FriendReqResEntity {
+public class FriendListEntity {
 
 	@Builder
-	public FriendReqResEntity(Long idx, int from, int to, String status, LocalDateTime create_date) {
-		this.idx = idx;
-		this.from = from;
-		this.to = to;
-		this.status = status;
+	public FriendListEntity(int user_idx, int friend_idx, String comment, LocalDateTime create_date, LocalDateTime last_update_date) {
+		this.user_idx = user_idx;
+		this.friend_idx = friend_idx;
+		this.comment = comment;
 		this.create_date = create_date;
+		this.last_update_date = last_update_date;
 	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idx;
+	private int user_idx;
 	
 	@Column(nullable=false)
-	private int from;
-	
-	@Column(nullable=false)
-	private int to;
+	private int friend_idx;
 	
 	@Column
-	private String status;
+	private String comment;
 	
 	@Column
 	private LocalDateTime create_date;
+	
+	@Column
+	private LocalDateTime last_update_date;
+	
 }

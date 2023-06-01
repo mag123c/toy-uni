@@ -1,6 +1,8 @@
 package com.uu.uni.user.controller;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -21,6 +23,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.uu.uni.user.dto.FriendReqDTO;
 import com.uu.uni.user.dto.UserDTO;
 import com.uu.uni.user.dto.UserSignUpDTO;
+import com.uu.uni.user.entity.FriendReqResEntity;
+import com.uu.uni.user.service.FriendReqResService;
 import com.uu.uni.user.service.PhoneValidationService;
 import com.uu.uni.user.service.UserService;
 
@@ -40,12 +44,14 @@ public class UserController {
 	final UserService userService;
 	final DefaultMessageService defaultMessageService;
 	final PhoneValidationService phoneValidationService;
+	final FriendReqResService friendReqResService;
 	
 	@Autowired
-	public UserController(UserService userService, PhoneValidationService phoneValidationService) {
+	public UserController(UserService userService, PhoneValidationService phoneValidationService, FriendReqResService friendReqResService) {
 		this.userService = userService;
 		this.defaultMessageService = NurigoApp.INSTANCE.initialize("NCS1QZEXH48DE8O1", "12MPLZHBL3SP13B2EEDVNRRTW0Z6OO7O", "https://api.coolsms.co.kr");
 		this.phoneValidationService = phoneValidationService;
+		this.friendReqResService = friendReqResService;
 	}
 	
 	@GetMapping("/signin")
@@ -125,15 +131,19 @@ public class UserController {
 		
 	}
 	
-	@GetMapping("/friends")	
-	public void friendAddCheck(FriendReqDTO dto, ModelAndView mv) {		
-
+	@ResponseBody
+	@GetMapping("/friends")
+	public boolean friendAddCheck(int idx, ModelAndView mv) {		
+		System.out.println("idx : " + idx);
+		List<Optional<FriendReqResEntity>> req = friendReqResService.getReq(idx);
+		if(req.size() >= 1) return true;
+		else return false;
 	}
 	
 	@ResponseBody
 	@PostMapping("/friends")	
-	public String friendReq(FriendReqDTO dto) {
-		return userService.friendReq(dto);		
+	public void friendReq(FriendReqDTO dto) {
+			
 	}
 	
 	@PutMapping("/friends")	
